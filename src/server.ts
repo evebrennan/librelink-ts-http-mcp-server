@@ -1,5 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import { LibreLinkUpClient } from '@diakem/libre-link-up-api-client';
 
 export const mcpServerCreate = () => {
   const mcpServer = new McpServer({
@@ -28,7 +29,32 @@ export const mcpServerCreate = () => {
       content: [{ type: "text", text: String(a - b) }]
     })
   );
-   
+
+  // Initialize LibreLinkUp client
+  // Configuration should be provided via environment variables
+  const { read } = LibreLinkUpClient({
+    username: process.env.LIBRE_USERNAME || '',
+    password: process.env.LIBRE_PASSWORD || '',
+    clientVersion: '4.9.0'
+  });
+
+  mcpServer.registerTool("read_glucose",
+    {
+      title: "Read Glucose Readings",
+      description: "Fetch recent blood glucose sensor data from LibreLinkUp",
+      inputSchema: {}
+    },
+    async () => {
+      const data = await read();
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify(data, null, 2)
+        }]
+      };
+    }
+  );
+
   mcpServer.registerPrompt(
     "greeting-prompt",
     {

@@ -1,28 +1,32 @@
 {
-  "name": "typescript-mcp-server-on-aws-agentcore-runtime",
+  "name": "librelink-ts-http-mcp-server",
   "version": "1.0.0",
-  "description": "Typscript MCP server deployed to AWS  Agentcore Runtime",
-  "main": "index.js",
+  "description": "TypeScript MCP server for LibreLinkUp glucose monitoring with HTTP transport",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js",
     "test": "echo \"No tests specified\" && exit 0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/megandsouza03/typescript-mcp-server-on-aws-agentcore-runtime.git"
+    "url": "https://github.com/evebr/librelink-ts-http-mcp-server.git"
   },
   "keywords": [
-    "agentcore",
-    "mcp"
+    "mcp",
+    "model-context-protocol",
+    "librelink",
+    "libre-link-up",
+    "glucose-monitoring",
+    "cgm",
+    "diabetes",
+    "typescript",
+    "http-transport"
   ],
-  "author": "megandsouza03",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/megandsouza03/typescript-mcp-server-on-aws-agentcore-runtime/issues"
-  },
-  "homepage": "https://github.com/megandsouza03/typescript-mcp-server-on-aws-agentcore-runtime#readme",
+  "author": "ebrennan",
   "dependencies": {
+    "@diakem/libre-link-up-api-client": "^0.7.2",
     "@modelcontextprotocol/sdk": "^1.17.1",
     "express": "^5.1.0",
     "zod": "^3.25.76"
