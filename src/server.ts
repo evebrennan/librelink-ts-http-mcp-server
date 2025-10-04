@@ -41,7 +41,7 @@ export const mcpServerCreate = () => {
   mcpServer.registerTool("read_glucose",
     {
       title: "Read Glucose Readings",
-      description: "Fetch recent blood glucose sensor data from LibreLinkUp",
+      description: "Fetch previous 12 hours of blood glucose sensor data from LibreLinkUp",
       inputSchema: {}
     },
     async () => {
