@@ -26,6 +26,7 @@
   ],
   "author": "ebrennan",
   "dependencies": {
+    "@babel/runtime": "^7.28.4",
     "@diakem/libre-link-up-api-client": "^0.7.2",
     "@modelcontextprotocol/sdk": "^1.17.1",
     "express": "^5.1.0",

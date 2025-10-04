@@ -1,17 +1,18 @@
-// Re-export types from @diakem/libre-link-up-api-client for consistency
-export type { LibreCgmData, TrendType } from '@diakem/libre-link-up-api-client';
+// Type definitions for LibreLinkUp client
+export type TrendType =
+  | 'SingleDown'
+  | 'FortyFiveDown'
+  | 'Flat'
+  | 'FortyFiveUp'
+  | 'SingleUp'
+  | 'NotComputable';
 
-export interface LibreLinkUpClient {
-  read(): Promise<LibreCgmData[]>;
-  readRaw(): Promise<ReadRawResponse>;
-  readAveraged(): Promise<LibreCgmData>;
-}
-
-// Types from the library for reference
-export interface ReadRawResponse {
-  connection: any;
-  activeSensors: any[];
-  graphData: GlucoseItem[];
+export interface LibreCgmData {
+  value: number;
+  isHigh: boolean;
+  isLow: boolean;
+  trend: TrendType;
+  date: Date;
 }
 
 export interface GlucoseItem {
@@ -28,18 +29,24 @@ export interface GlucoseItem {
   isLow: boolean;
 }
 
-export interface LibreCgmData {
-  value: number;
-  isHigh: boolean;
-  isLow: boolean;
-  trend: TrendType;
-  date: Date;
+export interface ReadRawResponse {
+  connection: any;
+  activeSensors: any[];
+  graphData: GlucoseItem[];
 }
 
-export type TrendType =
-  | 'SingleDown'
-  | 'FortyFiveDown'
-  | 'Flat'
-  | 'FortyFiveUp'
-  | 'SingleUp'
-  | 'NotComputable';
+export interface ReadResponse {
+  current: LibreCgmData;
+  history: LibreCgmData[];
+}
+
+export interface LibreLinkUpClient {
+  read(): Promise<ReadResponse>;
+  readRaw(): Promise<ReadRawResponse>;
+  readAveraged: (
+    amount: number,
+    callback: (average: LibreCgmData, memory: LibreCgmData[], history: LibreCgmData[]) => void,
+    interval?: number
+  ) => Promise<() => void>;
+  login(): Promise<any>;
+}
